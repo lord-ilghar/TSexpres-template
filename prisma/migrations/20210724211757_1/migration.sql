@@ -16,6 +16,3 @@ CREATE TABLE "User" (
     "name" TEXT,
     "status" BOOLEAN NOT NULL
 );
-
--- CreateIndex
-CREATE UNIQUE INDEX "User.userName_unique" ON "User"("userName");

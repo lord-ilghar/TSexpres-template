@@ -1,12 +1,13 @@
 import multer, {diskStorage, StorageEngine,} from 'multer';
 import {extname} from 'path';
 import uuid from 'uuid';
-
+import fs from 'fs';
 
 interface IFileUpload {
     size?: number;
     allowedExtensions?: string[];
 }
+
 // multer Class setup
 class FileUpload {
     path: string;
@@ -54,6 +55,14 @@ class FileUpload {
                     callback(new Error(`size of ${file.size} is larger than ${this.FileRoles.size}`));
             }
         }).single(fieldName);
+    }
+    remove = (fileName:string) => {
+        return new Promise((res , rej)=>{
+            fs.unlink(fileName , err => {
+                if(err) rej(err);
+                else res("file deleted success fully")
+            });
+        })
     }
 }
 

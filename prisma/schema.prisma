@@ -1,0 +1,33 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Post has relation width User model
+model Post{
+  id Int @id @default(autoincrement())
+  title String
+  des String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  // relation maker
+  user User @relation(fields: [user_id] , references: [id]) 
+  user_id Int
+}
+// add modles here .. 
+model User{
+  id Int @id @default(autoincrement())
+  userName String //@unique
+  name String?
+  status Boolean
+
+  // relation maker part 2
+  posts Post[]
+}
